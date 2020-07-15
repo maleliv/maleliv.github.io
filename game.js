@@ -11,9 +11,8 @@ window.onload = () => {
     const game = new Phaser.Game(config);
 }
 
-
-
 class Game extends Phaser.Scene {
+
     constructor() {
 
         super('Game');
@@ -34,12 +33,8 @@ class Game extends Phaser.Scene {
 
     }
 
-
-
-
-
-
     preload() {
+
         this.load.image('field', 'Assets/Sprites/soccet.png');
 
         this.load.spritesheet('circle',
@@ -52,10 +47,7 @@ class Game extends Phaser.Scene {
             { frameWidth: 64, frameHeight: 64 }
         );
 
-
     }
-
-
 
     create() {
 
@@ -66,7 +58,6 @@ class Game extends Phaser.Scene {
 
         this.cameras.main.setBounds(-1024, -1024, 1024 * 2, 1024 * 2);
         mainCamera.setBackgroundColor(4349639);
-
 
         this.anims.create({
             key: 'createdCircle',
@@ -82,12 +73,10 @@ class Game extends Phaser.Scene {
             repeat: 0
         });
 
-
     }
 
     //Строим поле из массива
     createField(size = 5, offsetCenter = [0, 0]) {
-
 
         this.groupField.forEach(el => el.destroy());
 
@@ -106,7 +95,6 @@ class Game extends Phaser.Scene {
                 }
 
                 let sprite = this.add.sprite(i * 64 + offsetCenter[0], n * 64 + offsetCenter[1], 'field').setOrigin(0);
-
 
                 if (n === 0 && i === 0) {
                     this.zoom++;
@@ -129,9 +117,11 @@ class Game extends Phaser.Scene {
     }
 
     setCamera() {
+
         let zoom = this.zoom;
 
         switch (zoom) {
+
             case 1: {
                 this.cameras.main.setZoom(1);
                 this.cameras.main.centerOn(this.centralSprite.x - 64, this.centralSprite.y - 64);
@@ -157,7 +147,9 @@ class Game extends Phaser.Scene {
                 this.cameras.main.setZoom(1);
                 this.cameras.main.centerOn(this.centralSprite.x, this.centralSprite.y);
             }
+
         }
+
     }
 
     //Строим начальный массив поля
@@ -172,6 +164,7 @@ class Game extends Phaser.Scene {
             for (let n = 0; n < this.sizeOfField; n++) {
                 field[i][n] = 0;
             }
+
         }
         return field;
 
@@ -211,9 +204,7 @@ class Game extends Phaser.Scene {
 
         }
 
-
     }
-
 
     setPlayerMove(gameObject, pos) {
 
@@ -241,9 +232,6 @@ class Game extends Phaser.Scene {
 
     }
 
-
-
-
     setBotMove() {
 
         let posX = -1;
@@ -254,7 +242,6 @@ class Game extends Phaser.Scene {
             posX = this.botNextMove.x;
             posY = this.botNextMove.y;
         }
-
 
         const getRandomPosition = () => {
 
@@ -308,7 +295,6 @@ class Game extends Phaser.Scene {
 
         if (!symbol) return false;
 
-
         const checkLine = (x, y, dx, dy, symbol, mover) => {
 
             let sx = x - dx;
@@ -349,7 +335,6 @@ class Game extends Phaser.Scene {
 
         }
 
-
         let res;
 
         res = res || checkLine(y, x, 1, 0, symbol, mover);
@@ -359,14 +344,7 @@ class Game extends Phaser.Scene {
 
         return res;
 
-
-
-
     }
-
-
-
-
 
     getSymbol(y, x) {
         return this.field[x] && this.field[x][y] ? this.field[x][y] : false;
@@ -394,7 +372,6 @@ class GameEnded extends Phaser.Scene {
     }
 
     preload() {
-
         this.load.image('field', 'Assets/Sprites/soccet.png');
 
 
@@ -407,7 +384,6 @@ class GameEnded extends Phaser.Scene {
             'Assets/Sprites/paticles_spritesheet.png',
             { frameWidth: 16, frameHeight: 20 }
         );
-
     }
 
     create() {
@@ -437,7 +413,7 @@ class GameEnded extends Phaser.Scene {
                 speed: 90,
                 gravityY: 40,
                 tint: [0xffff00, 0xff0000, 0x00ff00, 0x0000ff],
-                lifespan: 6000,
+                lifespan: 10000,
                 quantity: 20,
                 scale: { start: 0.4, end: 1 },
                 blendMode: 'ADD'
@@ -450,7 +426,7 @@ class GameEnded extends Phaser.Scene {
                 speed: 450,
                 gravityY: 150,
                 tint: [0xffff00, 0xff0000, 0x00ff00, 0x0000ff],
-                lifespan: 6000,
+                lifespan: 10000,
                 quantity: 10,
                 scale: { start: 0.4, end: 1.2 },
                 blendMode: 'ADD'
@@ -463,14 +439,11 @@ class GameEnded extends Phaser.Scene {
                 speed: 450,
                 gravityY: 100,
                 tint: [0xffff00, 0xff0000, 0x00ff00, 0x0000ff],
-                lifespan: 6000,
+                lifespan: 10000,
                 quantity: 10,
                 scale: { start: 0.4, end: 1.2 },
                 blendMode: 'ADD'
             });
-
-
-
 
             setTimeout(() => {
                 emitter.stop();
@@ -479,36 +452,26 @@ class GameEnded extends Phaser.Scene {
                 emitter4.stop();
             }, 500);
 
-            this.add.text(245, 150, 'ПОБЕДА!', { fontFamily: 'Microsoft YaHei UI, "Goudy Bookletter 1911", Times, serif', fontSize: '70px' });
+            this.add.text(245, 150, 'ПОБЕДА!', { fontFamily: '"Microsoft YaHei UI", "Goudy Bookletter 1911", Times, serif', fontSize: '70px' });
 
         } else {
-
-            this.add.text(200, 150, 'ИИ Победил', { fontFamily: 'Microsoft YaHei UI, "Goudy Bookletter 1911", Times, serif', fontSize: '70px' });
-
+            this.add.text(200, 150, 'ИИ Победил', { fontFamily: '"Microsoft YaHei UI", "Goudy Bookletter 1911", Times, serif', fontSize: '70px' });
         }
 
         let buttonRepeat = this.add.sprite(400, 450, 'buttonAgain');
         buttonRepeat.setInteractive();
 
-
         let mainCamera = this.cameras.main.setSize(800, 600).setName('mainCamera');
         mainCamera.setBackgroundColor(4349639);
-
 
         buttonRepeat.on('pointerover', () => buttonRepeat.setTexture('buttonAgain', 1));
         buttonRepeat.on('pointerout', () => buttonRepeat.setTexture('buttonAgain', 0));
 
         buttonRepeat.on('pointerdown', () => {
-
             this.game.scene.remove('Game');
             this.game.scene.add('Game', Game, true);
             this.scene.start('Game');
-
         });
-
-
-
-
     }
 
 }
